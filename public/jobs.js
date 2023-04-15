@@ -14,14 +14,14 @@ async function buildJobsTable(jobsTable, jobsTableHeader, token, message) {
         jobsTable.replaceChildren(...children); // clear this for safety
         return 0;
       } else {
-        for (let i = 0; i < data.jobs.length; i++) {
-          let editButton = `<td><button type="button" class="editButton" data-id=${data.jobs[i]._id}>edit</button></td>`;
-          let deleteButton = `<td><button type="button" class="deleteButton" data-id=${data.jobs[i]._id}>delete</button></td>`;
-          let rowHTML = `<td>${data.jobs[i].company}</td><td>${data.jobs[i].position}</td><td>${data.jobs[i].status}</td>${editButton}${deleteButton}`;
+        data.jobs.forEach((job) => {
+          let editButton = `<td><button type="button" class="editButton" data-id=${job._id}>edit</button></td>`;
+          let deleteButton = `<td><button type="button" class="deleteButton" data-id=${job._id}>delete</button></td>`;
+          let rowHTML = `<td>${job.company}</td><td>${job.position}</td><td>${job.status}</td>${editButton}${deleteButton}`;
           let rowEntry = document.createElement('tr');
           rowEntry.innerHTML = rowHTML;
           children.push(rowEntry);
-        }
+        });
         jobsTable.replaceChildren(...children);
       }
       return data.count;
